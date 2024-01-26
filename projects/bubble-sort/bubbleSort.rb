@@ -1,20 +1,20 @@
 def bubbleSort(numbers)
-    order_list = {}
-    compare_number = 0
-
+    
     numbers.each_with_index do |number, number_index|
-        number_index.upto(numbers.length - 1) do |current_number|
-            atual_number = numbers[current_number]
+        compare_number = number
 
-            if atual_number > compare_number
-                compare_number = atual_number
-                order_list << compare_number
+        (number_index + 1).upto(numbers.length - 1) do |current_number|
+            current = numbers[current_number]
+
+            if current < compare_number
+                # Trocar os números se estiverem fora de ordem
+                numbers[number_index], numbers[current_number] = current, compare_number
+                compare_number = current
             end
         end
     end
 
-    puts "#{order_list}"
-
+    puts "#{numbers}"
 end
 
-bubbleSort([4,3,78,2,0,2])
+bubbleSort([4, 3, 78, 2, 0, 2])
