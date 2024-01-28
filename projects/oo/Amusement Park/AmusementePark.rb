@@ -1,5 +1,5 @@
 class Attendee
-  def initialize(height, pass_id = nil, fits_ride = nil)
+  def initialize(height, pass_id = nil)
     @height = height
     @pass_id = pass_id
     @fits_ride = fits_ride
@@ -19,7 +19,7 @@ class Attendee
   end
 
   def revoke_pass!
-    @pass_id = nil
+    !@pass_id.nil?
   end
 
    def has_pass?
@@ -30,22 +30,16 @@ class Attendee
         end
   end
 
-  def fits_ride?(ride_minimum_height)
-        @height = ride_minimum_height    
-    if ride_minimum_height < 100
-        return true
-    else
-        return false
-    end
+  def fits_ride?(ride_minimum_height)    
+    @height >= ride_minimum_height
     
   end
 
   def allowed_to_ride?(ride_minimum_height)
-    raise 'Please implement the Attendee#allowed_to_ride? method'
+     fits_ride?(ride_minimum_height) && has_pass?
+    end
+
   end
-
-
-
 
 end
 
