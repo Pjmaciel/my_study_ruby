@@ -1,15 +1,31 @@
 class Board
     attr_accessor :board
     
-def initialize
-  @board = Array.new(3,0) { Array.new(3,0)}
-end
-
-    def display
-        puts " #{board[0][0]} | #{board[0][1]} | #{board[0][2]} "
-        puts '---|---|---'
-        puts " #{board[1][0]} | #{board[1][1]} | #{board[1][2]} "
-        puts '---|---|---'
-        puts " #{board[2][0]} | #{board[2][1]} | #{board[2][2]} "
+    def initialize
+    @board = Array.new(3) { Array.new(3,' ')}
     end
+
+    def display_board
+    @board.each do |row|
+      puts row.join(' | ')
+    end
+    puts "\n"
+  end
+
+    def place_symbol(row, col, symbol)
+
+        if valid_position?(row,col) && @board[row][col] == ''
+            @boar[row][col] = symbol
+            return true
+        else
+            return false
+        end
+    end
+
+    private 
+
+    def valid_position?(row,col)
+        (0..2).include?(row) && (0..2).include?(col)
+    end
+
 end
