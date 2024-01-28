@@ -1,7 +1,8 @@
 class Attendee
-  def initialize(height, pass_id = nil)
+  def initialize(height, pass_id = nil, fits_ride = nil)
     @height = height
     @pass_id = pass_id
+    @fits_ride = fits_ride
   end
 
   def height
@@ -20,14 +21,38 @@ class Attendee
   def revoke_pass!
     @pass_id = nil
   end
+
+   def has_pass?
+        if @height == 100 
+            return false
+        else
+            return true
+        end
+  end
+
+  def fits_ride?(ride_minimum_height)
+        @height = ride_minimum_height    
+    if ride_minimum_height < 100
+        return true
+    else
+        return false
+    end
+    
+  end
+
+  def allowed_to_ride?(ride_minimum_height)
+    raise 'Please implement the Attendee#allowed_to_ride? method'
+  end
+
+
+
+
 end
 
-attendee_with_pass = Attendee.new(160)
-issued_pass_id = attendee_with_pass.issue_pass!(42)
-attendee_with_pass.revoke_pass!
-attendee_without_pass = Attendee.new(106)
+attendee = Attendee.new(140)
+issued_pass_id = attendee.has_pass?
+fits_ride = attendee.fits_ride?(99)
 
-puts "Attendee height: #{attendee_with_pass.height}"
+puts "Attendee height: #{attendee.height}"
 puts "Attendee with pass ID: #{issued_pass_id}"
-puts "Attendee with pass ID after revoke: #{attendee_with_pass.pass_id}"
-puts "Attendee without pass ID: #{attendee_without_pass.pass_id}"
+puts "fists_ride: #{fits_ride}"
