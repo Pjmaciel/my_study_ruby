@@ -1,4 +1,4 @@
-class player
+class Player
     attr_reader :symbol
 
     def initialize(symbol)
@@ -8,7 +8,7 @@ class player
     def make_move(board)
         puts "jogador #{@symbol}, faca sua jogada!"
         print 'Digite a linha (0 ate 2): '
-        row = get.chomp.to_i
+        row = gets.chomp.to_i
         print 'Digite a coluna(0 ate 2)'
         col = gets.chomp.to_i
 
