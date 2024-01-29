@@ -4,19 +4,30 @@ class LogLineParser
   end
 
   def message
-   arrayMsg = @line.split(/ /,2)
-   puts "#{arrayMsg[1]}"
+    # Extrai a mensagem após o primeiro ':'
+    @line.split(':', 2).last.strip.gsub(/\[|\]/, '')
   end
 
   def log_level
-    raise 'Please implement the LogLineParser#log_level method'
+    @line.split(':', 2).first.strip.downcase.gsub(/\[|\]/, '')
   end
 
   def reformat
-    raise 'Please implement the LogLineParser#reformat method'
+    msg_reformatted = "#{message} (#{log_level})"
+    puts msg_reformatted
+    msg_reformatted
   end
 end
 
-phrase = LogLineParser.new('[ERROR]: Invalid operation').message
-phrase2 = LogLineParser.new('[WARNING]:  Disk almost full\r\n').message
+# Testes
+parser = LogLineParser.new('[ERROR]: Segmentation fault')
+assert_equal 'Segmentation fault (error)', parser.reformat
 
+parser = LogLineParser.new('[WARNING]: Decreased performance')
+assert_equal 'Decreased performance (warning)', parser.reformat
+
+parser = LogLineParser.new('[INFO]: Disk defragmented')
+assert_equal 'Disk defragmented (info)', parser.reformat
+
+parser = LogLineParser.new("[ERROR]: \t Corrupt disk\t \t \r\n")
+assert_equal 'Corrupt disk (error)', parser.reformat
