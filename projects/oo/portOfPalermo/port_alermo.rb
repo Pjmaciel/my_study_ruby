@@ -1,17 +1,15 @@
 module Port
-  INDENTIFIER = :PALE
+  IDENTIFIER = :PALE
 
   def self.get_identifier(city)
-    @city = city.slice(0,4).upcase
+    city.slice(0, 4).upcase.to_sym
   end
 
   def self.get_terminal(ship_identifier)
-    if ship_identifier == "OIL" || ship_identifier == "OIL"
-        :A
+    if ship_identifier.to_s.start_with?("OIL") || ship_identifier.to_s.start_with?("GAS")
+      :A
     else
-        :B 
+      :B 
+    end
   end
 end
-
-ship = Port.get_identifier("Hamburg") 
-puts " #{ship}" 
