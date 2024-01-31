@@ -1,12 +1,14 @@
+require_relative 'client'
+
 class Bank_account
 
     attr_reader :numero
-    attr_accessor :titular, :saldo
+    attr_accessor :client, :saldo
 
-    def initialize(numero, titular, saldo)
-      @numero = numero
-      @titular = titular
-      @saldo = saldo
+    def initialize(numero, name, surname, saldo)
+        @numero = numero
+        @client = Client.new(name,surname)
+        @saldo = saldo
     end
 
     def withdrawn(valor)
@@ -16,14 +18,14 @@ class Bank_account
             return 0
         else
             @saldo -= validate_value
-            puts " \nUsuario: #{@titular} fez um saque de R$#{valor.round(2)}, novo saldo: R$#{@saldo.round(2)}"
+            puts " \nUsuario: #{@client} fez um saque de R$#{valor.round(2)}, novo saldo: R$#{@saldo.round(2)}"
         end
     end
 
     def desposit(valor)
         validate_value = validate_transation(valor)
         @saldo += validate_value
-        puts " \nUsuario: #{@titular} fez um deposito de R$#{valor.round(2)}, novo saldo: R$#{@saldo.round(2)}"
+        puts " \nUsuario: #{@client} fez um deposito de R$#{valor.round(2)}, novo saldo: R$#{@saldo.round(2)}"
     end
     
     
@@ -44,16 +46,5 @@ class Bank_account
     end
 end
 
-pedro = Bank_account.new(111,"Pedro", 100)
-pedro.withdrawn(20)
 
-
-puts "--------------------------------------"
-
-benicio = Bank_account.new(222,"Benicio", 50)
-benicio.withdrawn(200)
-
-benicio.desposit(5000)
-
-pedro.pix(benicio,10)
 
