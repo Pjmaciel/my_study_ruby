@@ -5,9 +5,9 @@ class Bank_account
     attr_reader :numero
     attr_accessor :client, :saldo
 
-    def initialize(numero, name, surname, saldo)
+    def initialize(numero, owner, saldo)
         @numero = numero
-        @client = Client.new(name,surname)
+        @client = owner
         @saldo = saldo
     end
 
@@ -18,14 +18,14 @@ class Bank_account
             return 0
         else
             @saldo -= validate_value
-            puts " \nUsuario: #{@client} fez um saque de R$#{valor.round(2)}, novo saldo: R$#{@saldo.round(2)}"
+            puts " \nUsuario: #{@client.name} fez um saque de R$#{valor.round(2)}, novo saldo: R$#{@saldo.round(2)}"
         end
     end
 
     def desposit(valor)
         validate_value = validate_transation(valor)
         @saldo += validate_value
-        puts " \nUsuario: #{@client} fez um deposito de R$#{valor.round(2)}, novo saldo: R$#{@saldo.round(2)}"
+        puts " \nUsuario: #{@client.name} fez um deposito de R$#{valor.round(2)}, novo saldo: R$#{@saldo.round(2)}"
     end
     
     
